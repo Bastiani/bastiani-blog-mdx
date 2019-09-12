@@ -3,6 +3,7 @@ import App from 'next/app';
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
+import Router from 'next/router';
 
 import CodeBlock from '../components/CodeBlock';
 
@@ -24,6 +25,12 @@ const components = {
 
 // @ts-ignore
 class MyApp extends App {
+  componentDidMount() {
+    // @ts-ignore
+    Router.beforePopState(({ as }) => {
+      location.href = as;
+    });
+  }
   public render() {
     // @ts-ignore
     const { Component, pageProps } = this.props;
