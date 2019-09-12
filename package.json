@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "nodemon",
+    "build": "next build && tsc --project tsconfig.server.json",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "prestart": "npm run build"
   },
   "dependencies": {
     "@mdx-js/loader": "^1.4.4",
@@ -15,17 +16,21 @@
     "koa": "^2.8.1",
     "koa-cors": "^0.0.16",
     "koa-router": "^7.4.0",
+    "mongoose": "^5.7.0",
     "next": "9.0.5",
     "next-seo": "^2.0.0",
+    "nodemon": "^1.19.2",
     "prism-react-renderer": "^0.1.7",
     "react": "16.9.0",
     "react-dom": "16.9.0",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.3.2",
+    "ts-node": "^8.3.0"
   },
   "devDependencies": {
     "@types/koa": "^2.0.49",
     "@types/koa-cors": "^0.0.0",
     "@types/koa-router": "^7.0.42",
+    "@types/mongoose": "^5.5.17",
     "@types/next-seo": "^1.10.0",
     "@types/node": "^12.7.4",
     "@types/react": "^16.9.2",

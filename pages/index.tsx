@@ -14,7 +14,11 @@ const Home = () => (
     <ListPosts>
       {posts.map((post, index) => (
         <Link key={index} href={post.url}>
-          {post.title}
+          <a>
+            {post.publishedAt}
+            {post.title}
+            {post.description}
+          </a>
         </Link>
       ))}
     </ListPosts>

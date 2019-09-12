@@ -1,10 +1,8 @@
 [
   {
     "title": "[types and tricks] Customizando um input label required do formik",
-    "url": "/posts/required-field-formik"
-  },
-  {
-    "title": "[types and tricks] Customizando um input label required do formik",
+    "description": "Como inserir um asterisco no label de um custom input do formik",
+    "publishedAt": "09/09/2019",
     "url": "/posts/required-field-formik"
   }
 ]
