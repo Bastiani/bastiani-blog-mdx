@@ -15,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     text-size-adjust: 100%;
     text-rendering: optimizelegibility;
+    background-color: #f5f5f5;
   }
 `;
 

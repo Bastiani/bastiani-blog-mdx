@@ -10,7 +10,7 @@ const CodeBlock = ({ children }: Props) => {
   return (
     <Highlight {...defaultProps} theme={theme} code={children} language="javascript">
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={className} style={{ ...style, padding: '20px', fontSize: '15px' }}>
+        <pre className={className} style={{ ...style, padding: '20px', fontSize: '15px', overflowY: 'auto' }}>
           {tokens.map((line, i) => (
             <div key={i} {...getLineProps({ line, key: i })}>
               {line.map((token, key) => (

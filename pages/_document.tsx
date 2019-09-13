@@ -14,6 +14,7 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500&display=swap" rel="stylesheet" />
           {/*
           // @ts-ignore */}
           {this.props.styleTags}

@@ -1,4 +1,5 @@
 import { BlogJsonLd, NextSeo } from 'next-seo';
+import Disqus from 'disqus-react';
 
 import PostBox from '../../components/PostBox';
 
@@ -10,7 +11,7 @@ import PostBox from '../../components/PostBox';
     url: 'https://www.rafaelbastiani.com/post/required-field-formik',
     title: '[types and tricks] Customizando um input label required do formik',
     description: 'Como inserir um asterisco no label de um custom input do formik',
-    images: [{ url: 'https://www.rafaelbastiani.com/static/required-label.png' }],
+    images: [{ url: 'https://www.rafaelbastiani.com/static/posts/required-label.png' }],
     site_name: 'Rafael Campos de Bastiani'
   }}
   twitter={{
@@ -22,7 +23,7 @@ import PostBox from '../../components/PostBox';
 <BlogJsonLd
   url='https://www.rafaelbastiani.com'
   title='Rafael Campos de Bastiani'
-  images={['https://www.rafaelbastiani.com/static/required-label.png']}
+  images={['https://www.rafaelbastiani.com/static/posts/required-label.png']}
   datePublished={'09/09/2019'}
   dateModified={'09/09/2019'}
   authorName='Rafael Campos de Bastiani'
@@ -110,5 +111,14 @@ Nesse `InputFormik` ainda temos uma validação de senha conforme a imagem:
 ![](https://www.rafaelbastiani.com/static/posts/password-stronge.png)
 
 [strongerlevel](https://github.com/Bastiani/churras-trinca-front/blob/master/src/pages/Signup.tsx#L107)
+
+<Disqus.DiscussionEmbed
+  shortname={'rafaelbastiani-com'}
+  config={{
+    url: 'https://www.rafaelbastiani.com/posts/required-field-formik',
+    identifier: '[types and tricks] Customizando um input label required do formik',
+    title: '[types and tricks] Customizando um input label required do formik',
+  }}
+/>
 
 </PostBox>
