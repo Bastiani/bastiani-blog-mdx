@@ -4,6 +4,7 @@ import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
 import Router from 'next/router';
+import { ThemeProvider, theme } from '@chakra-ui/core';
 
 import CodeBlock from '../components/CodeBlock';
 
@@ -53,9 +54,11 @@ class MyApp extends App {
           }}
         />
         <GlobalStyle />
-        <MDXProvider components={components}>
-          <Component {...pageProps} />
-        </MDXProvider>
+        <ThemeProvider theme={theme}>
+          <MDXProvider components={components}>
+            <Component {...pageProps} />
+          </MDXProvider>
+        </ThemeProvider>
       </>
     );
   }

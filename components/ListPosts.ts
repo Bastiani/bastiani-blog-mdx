@@ -6,9 +6,9 @@ const ListPosts = styled.div`
   justify-content: center;
   width: 100%; */
   /* margin: 10px; */
-  a {
+  /* a {
     color: #457b9d;
-  }
+  } */
 `;
 
 export default ListPosts;
