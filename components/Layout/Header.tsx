@@ -1,10 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { Flex, Heading, Link as LinkChakra } from '@chakra-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FlexProps } from '@chakra-ui/core/dist/Flex';
 import { LinkProps } from '@chakra-ui/core/dist/Link';
+import { FaTwitter, FaGithub, FaLinkedin } from 'react-icons/fa';
 
 const headerContainer = {
   flexDirection: 'row',
@@ -13,6 +12,7 @@ const headerContainer = {
   borderBottom: '1px',
   borderColor: 'gray.200',
   p: 3,
+  maxHeight: '58px',
 } as FlexProps;
 
 const postLink = {
@@ -35,17 +35,17 @@ const Header = () => (
       {/*
       // @ts-ignore */}
       <LinkChakra {...postLink} href="https://www.linkedin.com/in/bastiani/" isExternal mr={2}>
-        <FontAwesomeIcon icon={faLinkedin} />
+        <FaLinkedin />
       </LinkChakra>
       {/*
       // @ts-ignore */}
       <LinkChakra {...postLink} href="https://github.com/Bastiani" isExternal mr={2}>
-        <FontAwesomeIcon icon={faGithub} />
+        <FaGithub />
       </LinkChakra>
       {/*
       // @ts-ignore */}
       <LinkChakra {...postLink} href="https://twitter.com/RBastiani" isExternal mr={2}>
-        <FontAwesomeIcon icon={faTwitter} />
+        <FaTwitter />
       </LinkChakra>
     </Heading>
   </Flex>
