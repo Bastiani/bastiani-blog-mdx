@@ -16,8 +16,8 @@ const Home = ({ listPosts }: Post) => (
     </Head>
 
     <ListPosts>
-      {listPosts.map(({ url, publishedAt, title, description }, index) => (
-        <PostCard key={index} url={url} publishedAt={publishedAt} title={title} description={description} />
+      {listPosts.map(({ url, publishedAt, title, description }) => (
+        <PostCard {...{ url, publishedAt, title, description }} key={url} />
       ))}
     </ListPosts>
   </>

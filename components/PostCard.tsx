@@ -1,5 +1,7 @@
 import React from 'react';
 import { Box, Text, Link as LinkChakra } from '@chakra-ui/core';
+import { BoxProps } from '@chakra-ui/core/dist/Box';
+import { LinkProps } from '@chakra-ui/core/dist/Link';
 import Link from 'next/link';
 
 interface PostCard {
@@ -10,35 +12,35 @@ interface PostCard {
   url: string;
 }
 
-const contentBox = ({
+const contentBox = {
   p: 4,
   display: { md: 'flex' },
-} as unknown) as React.CSSProperties;
+} as BoxProps;
 
-const postBox = ({
+const postBox = {
   mt: { base: 4, md: 0 },
-} as unknown) as React.CSSProperties;
+} as BoxProps;
 
-const postLink = ({
+const postLink = {
   mt: 1,
   display: 'block',
   fontSize: 'lg',
   lineHeight: 'normal',
   fontWeight: 'semibold',
-} as unknown) as React.CSSProperties;
+} as LinkProps;
 
-const postTitle = ({
+const postTitle = {
   fontWeight: 'bold',
   textTransform: 'uppercase',
   fontSize: 'sm',
   letterSpacing: 'wide',
   color: 'teal.600',
-} as unknown) as React.CSSProperties;
+} as BoxProps;
 
-const postText = ({
+const postText = {
   mt: 2,
   color: 'gray.500',
-} as unknown) as React.CSSProperties;
+} as BoxProps;
 
 const PostCard = ({ publishedAt, title, description, url }: PostCard) => (
   <Box {...contentBox}>

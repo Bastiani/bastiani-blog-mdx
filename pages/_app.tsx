@@ -7,6 +7,9 @@ import Router from 'next/router';
 import { ThemeProvider, theme } from '@chakra-ui/core';
 
 import CodeBlock from '../components/CodeBlock';
+import Header from '../components/Layout/Header';
+import Content from '../components/Layout/Content';
+import Main from '../components/Layout/Main';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -17,6 +20,11 @@ const GlobalStyle = createGlobalStyle`
     text-size-adjust: 100%;
     text-rendering: optimizelegibility;
     background-color: #f5f5f5;
+
+    a {
+      text-transform: none;
+      text-decoration: none;
+    }
   }
 `;
 
@@ -55,9 +63,14 @@ class MyApp extends App {
         />
         <GlobalStyle />
         <ThemeProvider theme={theme}>
-          <MDXProvider components={components}>
-            <Component {...pageProps} />
-          </MDXProvider>
+          <Content>
+            <Header />
+            <Main>
+              <MDXProvider components={components}>
+                <Component {...pageProps} />
+              </MDXProvider>
+            </Main>
+          </Content>
         </ThemeProvider>
       </>
     );

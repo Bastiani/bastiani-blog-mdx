@@ -15,5 +15,5 @@
     "jsx": "preserve"
   },
   "exclude": ["dist", "_next", "out", "next.config.js", "node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "static/github.js"]
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import theme from 'prism-react-renderer/themes/vsDark';
+import theme from 'prism-react-renderer/themes/nightOwl';
 
 interface Props {
   children: string;
@@ -8,7 +8,7 @@ interface Props {
 
 const CodeBlock = ({ children }: Props) => {
   return (
-    <Highlight {...defaultProps} theme={theme} code={children} language="javascript">
+    <Highlight {...defaultProps} theme={theme} code={children} language="jsx">
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} style={{ ...style, padding: '20px', fontSize: '15px', overflowY: 'auto' }}>
           {tokens.map((line, i) => (
