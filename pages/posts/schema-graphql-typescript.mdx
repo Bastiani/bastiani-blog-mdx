@@ -52,19 +52,6 @@ yarn add graphql graphql-compiler --dev
 yarn add typescript relay-compiler-language-typescript --dev
 ```
 
-No `.babelrc` adicione o seguinte (escolha a pasta de sua preferência, aqui coloquei o schema.json direto no src):
-
-```json
-{
-  "plugins": [
-    "relay",
-    {
-      "schema": "./src/schema.json"
-    }
-  ]
-}
-```
-
 No seu `package.json` inclua os seguintes scripts:
 
 ```
@@ -175,7 +162,9 @@ const Home = ({ query }: IProps): any => {...}
 ```
 
 Para mais informações veja meu exemplo de aplicação rodando:
+
 [backend](https://github.com/Bastiani/churras-trinca-backend)
+
 [frontend](https://github.com/Bastiani/churras-trinca-front)
 
 Duvidas? estou a disposição.
