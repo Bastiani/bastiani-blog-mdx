@@ -5,6 +5,7 @@ import { createGlobalStyle } from 'styled-components';
 import { MDXProvider } from '@mdx-js/react';
 import Router from 'next/router';
 import { ThemeProvider, theme } from '@chakra-ui/core';
+import withGA from 'next-ga';
 
 import CodeBlock from '../components/CodeBlock';
 import Header from '../components/Layout/Header';
@@ -77,4 +78,4 @@ class MyApp extends App {
   }
 }
 
-export default MyApp;
+export default withGA('UA-148090802-1', Router)(MyApp);

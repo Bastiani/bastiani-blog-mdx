@@ -2724,7 +2724,7 @@ debug@^3.1.0, debug@^3.2.6:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.0.1, debug@^4.1.0:
+debug@^4.0.0, debug@^4.0.1, debug@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
   dependencies:
@@ -4678,6 +4678,13 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
 
+next-ga@^2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/next-ga/-/next-ga-2.3.4.tgz#0bec23e7c2eea35485af0b342e7794bbbdb61d04"
+  dependencies:
+    debug "^4.0.0"
+    react-ga "^2.5.3"
+
 next-seo@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-2.1.0.tgz#e35f287654f3ff824d46353bed71dd1aee5939f6"
@@ -5471,6 +5478,10 @@ react-focus-lock@1.19.1, react-focus-lock@^1.17.7:
     focus-lock "^0.6.3"
     prop-types "^15.6.2"
     react-clientside-effect "^1.2.0"
+
+react-ga@^2.5.3:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.6.0.tgz#c3fe830ead2ad25117e1d33280d9698de9b28496"
 
 react-is@16.8.6:
   version "16.8.6"
