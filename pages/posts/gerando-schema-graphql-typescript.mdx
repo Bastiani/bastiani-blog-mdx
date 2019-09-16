@@ -1,0 +1,192 @@
+import { BlogJsonLd, NextSeo } from 'next-seo';
+import Disqus from 'disqus-react';
+
+import PostBox from '../../components/PostBox';
+
+<NextSeo
+  title='[types and tricks] Como gerar um schema Graphql com Typescript'
+  description='Nesse passo a passo vamos ver como gerar um schema usando relay e nele contendo tipagem.'
+  canonical='https://www.canonical.ie/'
+  openGraph={{
+    url: 'https://www.rafaelbastiani.com/posts/schema-graphql-typescript',
+    title: '[types and tricks] Como gerar um schema Graphql com Typescript',
+    description: 'Nesse passo a passo vamos ver como gerar um schema usando relay e nele contendo tipagem.',
+    images: [{ url: 'https://www.rafaelbastiani.com/static/posts/generated-schema-typescript.png' }],
+    site_name: 'Rafael Campos de Bastiani'
+  }}
+  twitter={{
+    handle: '@RBastiani',
+    site: '@RBastiani',
+    cardType: 'summary_large_image'
+  }}
+/>
+<BlogJsonLd
+  url='https://www.rafaelbastiani.com'
+  title='Rafael Campos de Bastiani'
+  images={['https://www.rafaelbastiani.com/static/posts/generated-schema-typescript.png']}
+  datePublished={'09/09/2019'}
+  dateModified={'09/09/2019'}
+  authorName='Rafael Campos de Bastiani'
+  description='Nesse passo a passo vamos ver como gerar um schema usando relay e nele contendo tipagem.'
+/>
+
+<PostBox>
+
+# [types and tricks] Como gerar um schema Graphql com Typescript
+
+## Nesse passo a passo vamos ver como gerar um schema usando relay e nele contendo tipagem.
+
+O Relay Modern usa o Relay Compiler para converter literais graphql em arquivos gerados que vivem ao lado dos arquivos de origem.
+Isso seguinifica que se eu tenho uma query chamada [Home](https://github.com/Bastiani/churras-trinca-front/blob/master/src/pages/Home.tsx#L98) dentro da minha página, na mesma pasta dessa minha página haverá uma pasta chamada [generated](https://github.com/Bastiani/churras-trinca-front/tree/master/src/pages/__generated__) e ela conterá
+os arquivos gerados pelo relay-compiler com os dois artefatos de tempo de execução (que ajudam a ler e gravar no Relay Store).
+Mais informações https://chentsulin.github.io/relay/docs/relay-compiler.html
+
+Por padrão esses arquivos gerados contem tipagem Flow, mas oque vamos ver aqui é como gerar tipos do TypeScript.
+
+Instale o seguinte:
+
+```
+yarn global add get-graphql-schema
+yarn add relay-compiler --dev
+yarn add graphql graphql-compiler --dev
+yarn add typescript relay-compiler-language-typescript --dev
+```
+
+No `.babelrc` adicione o seguinte (escolha a pasta de sua preferência, aqui coloquei o schema.json direto no src):
+
+```json
+{
+  "plugins": [
+    "relay",
+    {
+      "schema": "./src/schema.json"
+    }
+  ]
+}
+```
+
+No seu `package.json` inclua os seguintes scripts:
+
+```
+"update-schema": "get-graphql-schema http://localhost:5000/graphql > src/schema.graphql",
+"relay": "./node_modules/.bin/relay-compiler --src ./src/ --schema ./src/schema.graphql --language typescript"
+```
+
+Então com o server rodando, nesse caso em `http://localhost:5000/graphql` vamos rodar o comando `yarn update-schema`, com isso teremos o arquivo
+`schema.graphql` na nossa pasta src.
+Em seguida rodamos o `yarn relay` para que ele procure em nossos arquivos os schemas graphql e gere para nós os arquivos correspondentes na pasta `__generated__`.
+
+Seguindo o exemplo da query Home, vamos ver um pedaço dela dentro da nossa página também chamada de `Home.tsx`:
+
+```js
+const HomePaginationContainer = createPaginationContainer(
+  Home,
+  {
+    query: graphql`
+      fragment Home_query on Query
+        @argumentDefinitions(
+          count: { type: "Int" }
+          cursor: { type: "String" }
+        ) {
+        me {
+          id
+          _id
+          name
+        }
+        barbecues(first: $count, after: $cursor)
+          @connection(key: "Home_barbecues", filters: []) {
+          edges {
+            node {
+              id
+              _id
+              date
+              description
+              observation
+              participants {
+                edges {
+                  node {
+                    participant {
+                      name
+                    }
+                    total
+                  }
+                }
+              }
+              total
+            }
+          }
+        }
+      }
+    `
+  },
+...
+```
+
+Então após termos rodado o `yarn relay` vamos ter o seguinte na pasta `__generated__`:
+![](https://www.rafaelbastiani.com/static/posts/generated.png)
+
+O inicio do arquivo [Home_query.graphql.ts](https://github.com/Bastiani/churras-trinca-front/blob/master/src/pages/__generated__/Home_query.graphql.ts):
+
+```js
+import { ReaderFragment } from "relay-runtime";
+export type Home_query$ref = any;
+export type Home_query = {
+    readonly me: {
+        readonly id: string;
+        readonly _id: string | null;
+        readonly name: string | null;
+    } | null;
+    readonly barbecues: {
+        readonly edges: ReadonlyArray<{
+            readonly node: {
+                readonly id: string;
+                readonly _id: string | null;
+                readonly date: string;
+                readonly description: string;
+                readonly observation: string | null;
+                readonly participants: {
+                    readonly edges: ReadonlyArray<{
+                        readonly node: {
+                            readonly participant: {
+                                readonly name: string | null;
+                            } | null;
+                            readonly total: number | null;
+                        };
+                    } | null>;
+                };
+                readonly total: number | null;
+            };
+        } | null>;
+    } | null;
+    readonly " $refType": Home_query$ref;
+};
+```
+
+Agora para usarmos essa tipagem basta importar, vamos ver:
+
+```js
+import { Home_query as HomeQuery } from './__generated__/Home_query.graphql';
+
+interface IProps {
+  query: HomeQuery;
+}
+
+const Home = ({ query }: IProps): any => {...}
+```
+
+Para mais informações veja meu exemplo de aplicação rodando:
+[backend](https://github.com/Bastiani/churras-trinca-backend)
+[frontend](https://github.com/Bastiani/churras-trinca-front)
+
+Duvidas? estou a disposição.
+
+<Disqus.DiscussionEmbed
+  shortname={'rafaelbastiani-com'}
+  config={{
+    url: 'https://www.rafaelbastiani.com/posts/schema-graphql-typescript',
+    identifier: '[types and tricks] Como gerar um schema Graphql com Typescript',
+    title: '[types and tricks] Como gerar um schema Graphql com Typescript',
+  }}
+/>
+
+</PostBox>
