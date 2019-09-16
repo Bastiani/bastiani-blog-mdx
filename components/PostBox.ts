@@ -17,14 +17,12 @@ const PostBox = styled.div`
   }
 
   h1 {
-    font-family: 'Montserrat', sans-serif;
     margin: 0px;
     color: #333;
     font-weight: 600;
   }
 
   h2 {
-    font-family: 'Montserrat', sans-serif;
     color: #333;
     font-weight: 600;
   }
