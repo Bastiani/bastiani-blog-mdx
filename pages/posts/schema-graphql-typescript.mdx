@@ -37,7 +37,7 @@ import PostBox from '../../components/PostBox';
 ## Nesse passo a passo vamos ver como gerar um schema usando relay e nele contendo tipagem.
 
 O Relay Modern usa o Relay Compiler para converter literais graphql em arquivos gerados que vivem ao lado dos arquivos de origem.
-Isso seguinifica que se eu tenho uma query chamada [Home](https://github.com/Bastiani/churras-trinca-front/blob/master/src/pages/Home.tsx#L98) dentro da minha página, na mesma pasta dessa minha página haverá uma pasta chamada [generated](https://github.com/Bastiani/churras-trinca-front/tree/master/src/pages/__generated__) e ela conterá
+Isso significa que se eu tenho uma query chamada [Home](https://github.com/Bastiani/churras-trinca-front/blob/master/src/pages/Home.tsx#L98) dentro da minha página, na mesma pasta dessa minha página haverá uma pasta chamada [generated](https://github.com/Bastiani/churras-trinca-front/tree/master/src/pages/__generated__) e ela conterá
 os arquivos gerados pelo relay-compiler com os dois artefatos de tempo de execução (que ajudam a ler e gravar no Relay Store).
 Mais informações https://chentsulin.github.io/relay/docs/relay-compiler.html
 
