@@ -37,15 +37,14 @@ import PostBox from '../../components/PostBox';
 
 ## Vamos ver como inserir code highlight dentro de um conteúdo em mdx.
 
-O formato MDX nos permite escrever markdown ao mesmo tempo que escrevemos JSX.
+O formato MDX nos permite escrever markdown ao mesmo tempo que escrevemos JSX
 
 Podemos usar `import` e `exports` também, exemplo:
 
 ```js
 # Hello, *world*!
 
-Below is an example of JSX embedded in Markdown. <br /> **Try and change
-the background color!**
+Below is an example of JSX embedded in Markdown. <br /> **background color!**
 
 <div style={{ padding: '20px', backgroundColor: 'tomato' }}>
   <h3>This is JSX</h3>
@@ -54,7 +53,7 @@ the background color!**
 
 E o resultado:
 
-<Box borderWidth="2px" borderColor="#13233A" borderStyle="solid" p={2}>
+<Box bg="#E5E8E3" borderWidth="2px" borderColor="#13233A" borderStyle="solid" p={2}>
 # Hello, *world*!
 
 Below is an example of JSX embedded in Markdown. <br /> **Background color!**
