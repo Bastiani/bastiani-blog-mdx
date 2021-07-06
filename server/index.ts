@@ -3,8 +3,8 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import cors from 'koa-cors';
 
-import connectToDatabase from './database';
-import PostListModel from './models/PostListModel';
+// import connectToDatabase from './database';
+// import PostListModel from './models/PostListModel';
 
 const port = parseInt(process.env.PORT || '3000', 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -20,8 +20,16 @@ app.prepare().then(() => {
     ctx.respond = false;
   });
 
-  router.get('/api/postlist', async ctx => {
-    ctx.body = await PostListModel.find().sort({ createdAt: -1 });
+  router.get('/api/postlist', ctx => {
+    // ctx.body = await PostListModel.find().sort({ createdAt: -1 });
+    ctx.body = [
+      {
+        url: '/posts/schema-graphql-typescript',
+        title: 'schema-graphql-typescript',
+        description: 'schema-graphql-typescript',
+        active: true,
+      },
+    ];
   });
 
   router.get('*', async ctx => {
@@ -39,14 +47,14 @@ app.prepare().then(() => {
   server.use(router.routes()).use(router.allowedMethods());
 
   server.listen(port, async () => {
-    try {
-      const info = await connectToDatabase();
-      // @ts-ignore
-      console.log(`Connected to ${info.host}:${info.port}/${info.name}`);
-    } catch (error) {
-      console.error('Unable to connect to database');
-      process.exit(1);
-    }
+    // try {
+    //   const info = await connectToDatabase();
+    //   // @ts-ignore
+    //   console.log(`Connected to ${info.host}:${info.port}/${info.name}`);
+    // } catch (error) {
+    //   console.error('Unable to connect to database');
+    //   process.exit(1);
+    // }
     console.log(`>>> Ready on http://localhost:${port}`);
   });
 });
