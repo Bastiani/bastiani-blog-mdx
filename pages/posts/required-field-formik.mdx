@@ -1,0 +1,129 @@
+import { BlogJsonLd, NextSeo } from "next-seo";
+import Disqus from "disqus-react";
+
+import PostBox from "../../components/PostBox";
+
+export const meta = {
+  title: "[types and tricks] Customizando um input label required do formik",
+  description:
+    "Como inserir um asterisco no label de um custom input do formik",
+};
+
+<NextSeo
+  title="[types and tricks] Customizando um input label required do formik"
+  description="Como inserir um asterisco no label de um custom input do formik"
+  canonical="https://www.canonical.ie/"
+  openGraph={{
+    url: "https://www.rafaelbastiani.com/posts/required-field-formik",
+    title: "[types and tricks] Customizando um input label required do formik",
+    description:
+      "Como inserir um asterisco no label de um custom input do formik",
+    images: [
+      { url: "https://www.rafaelbastiani.com/static/posts/required-label.png" },
+    ],
+    site_name: "Rafael Campos de Bastiani",
+  }}
+  twitter={{
+    handle: "@RBastiani",
+    site: "@RBastiani",
+    cardType: "summary_large_image",
+  }}
+/>
+<BlogJsonLd
+  url="https://www.rafaelbastiani.com"
+  title="Rafael Campos de Bastiani"
+  images={["https://www.rafaelbastiani.com/static/posts/required-label.png"]}
+  datePublished={"09/09/2019"}
+  dateModified={"09/09/2019"}
+  authorName="Rafael Campos de Bastiani"
+  description="Como inserir um asterisco no label de um custom input do formik"
+/>
+
+<PostBox>
+
+# [types and tricks] Customizando um input label required do formik
+
+## Como inserir um asterisco no label de um custom input do formik
+
+Opa, beleza? Bora ver como fazer um custom input massa com direito a um asterisco de required.
+
+![](https://www.rafaelbastiani.com/static/posts/required-label.png)
+
+[InputFormik](https://github.com/Bastiani/churras-trinca-front/blob/master/src/components/Input/InputFormik.tsx)
+
+[Label](https://github.com/Bastiani/churras-trinca-front/blob/master/src/components/Label/Label.tsx)
+
+Vamos ver alguns códigos:
+
+```js
+const Label = ({ children, labelMsg, labelTop = true, name, formik }: IProps) =>
+  labelTop ? (
+    <ContentStyled isRequired={formik && isRequiredField(formik, name)}>
+      <label htmlFor={name}>
+        {labelMsg}
+        {children}
+      </label>
+    </ContentStyled>
+  ) : (
+    <ContentStyled isRequired={formik && isRequiredField(formik, name)}>
+      <LabelStyled label={labelMsg}>{children}</LabelStyled>
+    </ContentStyled>
+  );
+```
+
+`labelTop` define se o `label` vai ficar no topo ou do lado do `input`.
+Agora vamos para a mágica, o `isRequired` e o `isRequiredField`:
+
+```js
+export const ContentStyled = styled.div`
+  ${(props: IProps) =>
+    props.isRequired &&
+    `label::before {
+      display: inline-block;
+      margin-right: 4px;
+      color: #f5222d;
+      font-size: 14px;
+      font-family: SimSun, sans-serif;
+      line-height: 1;
+      content: '\*';
+    }`}
+`;
+```
+
+Como visto no código a cima, temos um styled-component com a props `isRequired` e ali temos então o css que insere
+o asterisco do lado do `label`.
+
+```js
+const isRequiredField = ({ validationSchema }: any, name: string) => {
+  try {
+    const isRequired = validationSchema.fields[name]
+      ? !!validationSchema.fields[name].tests.find(
+          (test: any) => test.OPTIONS.name === "required"
+        ).OPTIONS.name
+      : false;
+    return isRequired;
+  } catch (event) {
+    return false;
+  }
+};
+```
+
+Então temos a função que identifica se o `field` é required ou não por meio do `validationSchema` do formik.
+
+Nesse `InputFormik` ainda temos uma validação de senha conforme a imagem:
+
+![](https://www.rafaelbastiani.com/static/posts/password-stronge.png)
+
+[strongerlevel](https://github.com/Bastiani/churras-trinca-front/blob/master/src/pages/Signup.tsx#L107)
+
+<Disqus.DiscussionEmbed
+  shortname={"rafaelbastiani-com"}
+  config={{
+    url: "https://www.rafaelbastiani.com/posts/required-field-formik",
+    identifier:
+      "[types and tricks] Customizando um input label required do formik",
+    title: "[types and tricks] Customizando um input label required do formik",
+  }}
+/>
+
+</PostBox>

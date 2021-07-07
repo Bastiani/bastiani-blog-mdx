@@ -9,9 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^1.6.4",
+    "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
+    "@mdx-js/loader": "^1.6.22",
+    "@next/mdx": "^11.0.1",
+    "disqus-react": "^1.1.1",
+    "framer-motion": "^4",
     "next": "11.0.1",
+    "next-seo": "^4.26.0",
+    "prism-react-renderer": "^1.2.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-icons": "^4.2.0"
   },
   "devDependencies": {
     "@types/react": "17.0.13",

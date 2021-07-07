@@ -1,0 +1,183 @@
+import { BlogJsonLd, NextSeo } from "next-seo";
+import Disqus from "disqus-react";
+import { Box } from "@chakra-ui/react";
+
+import PostBox from "../../components/PostBox";
+
+export const meta = {
+  title: "Inserindo syntax highlight dentro de um mdx",
+  description:
+    "Vamos ver como inserir syntax highlight dentro de um conteudo em mdx",
+};
+
+<NextSeo
+  title="Inserindo syntax highlight dentro de um mdx"
+  description="Vamos ver como inserir syntax highlight dentro de um conteudo em mdx"
+  canonical="https://www.canonical.ie/"
+  openGraph={{
+    url: "https://www.rafaelbastiani.com/posts/syntax-highlight-mdx",
+    title: "Inserindo syntax highlight dentro de um mdx",
+    description:
+      "Vamos ver como inserir syntax highlight dentro de um conteudo em mdx",
+    images: [
+      {
+        url: "https://www.rafaelbastiani.com/static/posts/syntax-highlight-mdx.png",
+      },
+    ],
+    site_name: "Rafael Campos de Bastiani",
+  }}
+  twitter={{
+    handle: "@RBastiani",
+    site: "@RBastiani",
+    cardType: "summary_large_image",
+  }}
+/>
+<BlogJsonLd
+  url="https://www.rafaelbastiani.com"
+  title="Rafael Campos de Bastiani"
+  images={[
+    "https://www.rafaelbastiani.com/static/posts/syntax-highlight-mdx.png",
+  ]}
+  datePublished={"09/09/2019"}
+  dateModified={"09/09/2019"}
+  authorName="Rafael Campos de Bastiani"
+  description="Vamos ver como inserir syntax highlight dentro de um conteudo em mdx"
+/>
+
+<PostBox>
+
+# Inserindo syntax highlight dentro de um mdx
+
+## Vamos ver como inserir syntax highlight dentro de um conteúdo em mdx
+
+O formato MDX nos permite escrever markdown ao mesmo tempo que escrevemos JSX.
+
+Podemos usar `import` e `exports` também, exemplo:
+
+```js
+# Hello, *world*!
+
+Below is an example of JSX embedded in Markdown. <br /> **background color!**
+
+<div style={{ padding: '20px', backgroundColor: 'tomato' }}>
+  <h3>This is JSX</h3>
+</div>
+```
+
+E o resultado:
+
+<Box bg="#E5E8E3" borderWidth="2px" borderColor="#13233A" borderStyle="solid" p={2}>
+
+# Hello, _world_!
+
+Below is an example of JSX embedded in Markdown. <br /> **Background color!**
+
+<div style={{ padding: "20px", backgroundColor: "tomato" }}>
+  <h3>This is JSX</h3>
+</div>
+
+</Box>
+
+Nosso foco aqui é ver como criar um componente que vai pegar nosso `code` e gerar o syntax highlight.
+
+Para mais informações de como configurar o MDX em seu projeto veja a documentação oficial https://mdxjs.com/getting-started
+
+Vamos instalar o seguinte:
+
+```
+yarn add @mdx-js/react prism-react-renderer
+```
+
+Em seu arquivo `App.js` faça o seguinte:
+
+**App.js**
+
+```js
+import { MDXProvider } from "@mdx-js/react";
+// Código omitido
+const components = {
+  pre: (props) => <div {...props} />,
+  code: (props) => <CodeBlock {...props} />, // <<<< CodeBlock que gera o syntax highlight
+};
+// Código omitido
+<MDXProvider components={components}>
+  <main {...props} />
+</MDXProvider>;
+// Código omitido
+```
+
+Exemplo completo [App](https://github.com/Bastiani/bastiani-blog-mdx/blob/master/pages/_app.tsx#L70).
+
+No código acima criamos um objeto chamado `components`, é nele que passamos quais componentes vamos querer alterar na renderização do MDX.
+
+Temos o `<CodeBlock />` atribuído a tag html [code](https://www.w3schools.com/tags/tag_code.asp), código completo [CodeBlock](https://github.com/Bastiani/bastiani-blog-mdx/blob/master/components/CodeBlock.tsx):
+
+**CodeBlock**:
+
+```js
+import React from "react";
+import Highlight, { defaultProps } from "prism-react-renderer";
+import theme from "prism-react-renderer/themes/nightOwl";
+
+interface Props {
+  children: string;
+}
+
+const CodeBlock = ({ children }: Props) => {
+  return (
+    <Highlight {...defaultProps} theme={theme} code={children} language="jsx">
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <pre
+          className={className}
+          style={{
+            ...style,
+            padding: "20px",
+            fontSize: "15px",
+            overflowY: "auto",
+          }}
+        >
+          {tokens.map((line, i) => (
+            <div key={i} {...getLineProps({ line, key: i })}>
+              {line.map((token, key) => (
+                <span key={key} {...getTokenProps({ token, key })} />
+              ))}
+            </div>
+          ))}
+        </pre>
+      )}
+    </Highlight>
+  );
+};
+
+export default CodeBlock;
+```
+
+Então, esse componente faz a mágica do syntax highlight, podemos atribuir um tema conforme foi feito aqui:
+
+```js
+import theme from "prism-react-renderer/themes/nightOwl";
+```
+
+E no `Highlight` atribuímos o `theme` e o `language` que nesse caso ficou como `jsx`:
+
+```js
+<Highlight {...defaultProps} theme={theme} code={children} language="jsx">
+```
+
+Agora no nosso arquivo MDX, quando quisermos inserir códigos, basta fazer assim:
+![syntax into mdx](https://www.rafaelbastiani.com/static/posts/syntax-into-mdx.png)
+
+Mais informações sobre o syntax highlight https://mdxjs.com/guides/syntax-highlighting
+
+Dúvidas? pode entrar em contato nos comentários que irei ajudar.
+
+<Disqus.DiscussionEmbed
+  shortname={"rafaelbastiani-com"}
+  config={{
+    url: "https://www.rafaelbastiani.com/posts/syntax-highlight-mdx",
+    identifier: "Inserindo syntax highlight dentro de um mdx",
+    title: "Inserindo syntax highlight dentro de um mdx",
+  }}
+/>
+
+</PostBox>
