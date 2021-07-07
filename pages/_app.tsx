@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { DefaultSeo } from "next-seo";
 import { MDXProvider } from "@mdx-js/react";
+import { ChakraProvider } from "@chakra-ui/react";
 
 import CodeBlock from "../components/CodeBlock";
 import Content from "../components/Layout/Content";
@@ -33,14 +34,16 @@ function MyApp({ Component, pageProps }: AppProps) {
       />
       {/* <GlobalStyle /> */}
       {/* <ThemeProvider theme={theme}> */}
-      <Content>
-        <Header />
-        <Main>
-          <MDXProvider components={components}>
-            <Component {...pageProps} />
-          </MDXProvider>
-        </Main>
-      </Content>
+      <ChakraProvider>
+        <Content>
+          <Header />
+          <Main>
+            <MDXProvider components={components}>
+              <Component {...pageProps} />
+            </MDXProvider>
+          </Main>
+        </Content>
+      </ChakraProvider>
       {/* </ThemeProvider> */}
     </>
   );
