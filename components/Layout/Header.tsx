@@ -31,7 +31,7 @@ const postLink = {
 const Header = () => (
   <Flex {...headerContainer}>
     <Heading as="h3" size="lg" m={1}>
-      <Link href="/">
+      <Link href="/" passHref>
         <LinkChakra {...postLink}>Rafael Campos de Bastiani</LinkChakra>
       </Link>
     </Heading>

@@ -20,6 +20,7 @@ const PostBox = styled.div`
     margin: 0px;
     color: #333;
     font-weight: 600;
+    margin-bottom: 20px;
   }
 
   h2 {
@@ -40,6 +41,10 @@ const PostBox = styled.div`
     border-bottom: 1px solid #ddd;
     padding-bottom: 2px;
     box-shadow: none;
+  }
+
+  .prism-code {
+    margin-bottom: 20px;
   }
 `;
 

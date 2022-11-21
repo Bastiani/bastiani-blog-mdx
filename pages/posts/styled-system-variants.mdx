@@ -1,0 +1,146 @@
+import { BlogJsonLd, NextSeo } from "next-seo";
+import Disqus from "disqus-react";
+
+import PostBox from "../../components/PostBox";
+
+export const meta = {
+  title: "Componentes com variantes usando styled-system",
+  description: "Componentes com variantes usando styled-system",
+};
+
+<NextSeo
+  title="Componentes com variantes usando styled-system"
+  description="Componentes com variantes usando styled-system"
+  canonical="https://www.canonical.ie/"
+  openGraph={{
+    url: "https://www.rafaelbastiani.com/posts/styled-system-variants",
+    title: "Componentes com variantes usando styled-system",
+    description: "Componentes com variantes usando styled-system",
+    images: [
+      {
+        url: "https://www.rafaelbastiani.com/static/posts/styled-system-variants.png",
+      },
+    ],
+    site_name: "Rafael Campos de Bastiani",
+  }}
+  twitter={{
+    handle: "@RBastiani",
+    site: "@RBastiani",
+    cardType: "summary_large_image",
+  }}
+/>
+<BlogJsonLd
+  url="https://www.rafaelbastiani.com"
+  title="Rafael Campos de Bastiani"
+  images={[
+    "https://www.rafaelbastiani.com/static/posts/styled-system-variants.png",
+  ]}
+  datePublished={"21/11/2022"}
+  dateModified={"21/11/2022"}
+  authorName="Rafael Campos de Bastiani"
+  description="Componentes com variantes usando styled-system"
+/>
+
+<PostBox>
+
+# Componentes com variantes usando styled-system
+
+Styled-system juntamente com styled-components ou emotion nos permite criar componentes completos e configuráveis.
+
+Neste post vou mostrar como criar um componente usando variants do styled-system. Esse recurso nos permite criar componentes para um design system por exemplo, onde os devs apenas informam para o componente o seu tamanho e variante, evitando assim configurações extras que acabariam quebrando o DS ou não mantendo no padrão.
+
+Aqui temos um exemplo de arquivo de tema de um botão, nele temos as variantes e os tamanhos. Obviamente no mundo real os valores estariam vindo de outros arquivos como por exemplo fonts, sizes, colors e etc contendo todos os tokens de um design system.
+
+```js
+const variants = {
+  defaultButton: {
+    border: "solid 1px #023e8a",
+    backgroundColor: "#0096c7",
+    borderRadius: "4px",
+    width: "100%",
+  },
+  ghost: {
+    border: "solid 1px #023e8a",
+    backgroundColor: "transparent",
+    borderRadius: "4px",
+    width: "100%",
+    "&:hover": {
+      backgroundColor: "#4361ee",
+    },
+  },
+};
+```
+
+```js
+const sizes = {
+  xxx: {
+    height: "60px",
+  },
+  xx: {
+    height: "50px",
+  },
+  medium: {
+    height: "35px",
+  },
+  small: {
+    height: "25px",
+  },
+};
+```
+
+Agora vamos ver como implementar essas configurações de tema no componente. O código a baixo mostra como fazer.
+
+```js
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
+import { variant } from "styled-system";
+
+import { theme } from "../theme";
+
+export const Button = styled.button`
+  ${css({ ...theme.button.variants.defaultButton })}
+  ${variant({
+    variants: {
+      ...theme.button.variants,
+    },
+  })}
+  ${variant({
+    prop: "size",
+    variants: {
+      ...theme.button.sizes,
+    },
+  })}
+`;
+```
+
+No começo do componente informamos as configurações default, que também é uma variante.
+
+Logo a baixo temos então o uso do recurso do styled-system, o variant, passamos na propriedade variants todas as nossas variantes do tema. Quando usarmos o componente, passaremos então a seguinte prop para o botão `variant="ghost"` por exemplo.
+
+Depois de passar as variantes configuramos então os tamanhos, usando novamente o recurso variant porem com uma configuração a mais, informamos para ele que a prop variant do componente vai se chamar size, ficando assim `size="xxx"`.
+
+Aqui estão alguns exemplos de uso e o link para a aplicação funcionando.
+
+```js
+  <Button>ok</Button>
+  <Button variant="ghost">ghost</Button>
+  <Button size="xxx">xxx</Button>
+  <Button size="xx">xx</Button>
+  <Button size="medium">medium</Button>
+  <Button size="small">small</Button>
+```
+
+[Exemplo no codesandbox](https://codesandbox.io/s/styled-system-post-q3sdhd?file=/src/App.tsx)
+
+[styled-system](https://styled-system.com/variants/)
+
+<Disqus.DiscussionEmbed
+  shortname={"rafaelbastiani-com"}
+  config={{
+    url: "https://www.rafaelbastiani.com/posts/styled-system-variants",
+    identifier: "Componentes com variantes usando styled-system",
+    title: "Componentes com variantes usando styled-system",
+  }}
+/>
+
+</PostBox>
