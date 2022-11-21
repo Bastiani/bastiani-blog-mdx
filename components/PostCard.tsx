@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/link-passhref */
 import React from "react";
 import {
   Box,
@@ -48,7 +47,7 @@ const postText = {
 
 const PostCard = ({ title, description, slug }: PostCard) => (
   <Box {...contentBox}>
-    <Link href={`/posts/${slug}`}>
+    <Link href={`/posts/${slug}`} passHref>
       <LinkChakra {...postLink}>
         <Box {...postBox}>
           <Text {...postTitle}>{title}</Text>

@@ -5,19 +5,20 @@ export type Post = {
 };
 export async function getAllPosts() {
   // @ts-ignore
-  const context = require.context("../posts", false, /\.mdx$/);
+  const context = require.context("pages/posts", false, /\.mdx$/);
   const posts: Array<Post> = [];
 
-  for (const key of context.keys()) {
-    const post = key.slice(2);
-    const content = await import(`../posts/${post}`);
-    const { title, description } = content.meta;
+  for (const post of context.keys()) {
+    if (!post.startsWith("pages/posts/")) {
+      const content = await import(`../posts/${post.slice(2)}`);
+      const { title, description } = content.meta;
 
-    posts.push({
-      slug: post.replace(".mdx", ""),
-      title,
-      description,
-    });
+      posts.push({
+        slug: post.replace(".mdx", ""),
+        title,
+        description,
+      });
+    }
   }
 
   return posts;
